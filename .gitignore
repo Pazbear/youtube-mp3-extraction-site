@@ -1,0 +1,5 @@
+node_modules/
+env-files/
+src/db/config
+src/db/migrations
+src/db/seeders
