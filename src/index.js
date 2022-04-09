@@ -10,6 +10,8 @@ const morgan = require('morgan');
 const path = require("path");
 const helmet = require('helmet');
 
+const indexRouter = require('./routes/index')
+
 
 
 const app = express();
@@ -55,6 +57,7 @@ app.use(session({
     }
 }))
 
+app.use('/', indexRouter)
 
 /******************* PM2 *******************/
 let isDisableKeepAlive = false
