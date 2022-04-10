@@ -4,3 +4,6 @@ src/db/config
 src/db/migrations
 src/db/seeders
 src/module/chromedriver.exe
+src/views/assets
+src/views/scripts
+src/views/styles

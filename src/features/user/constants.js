@@ -1,0 +1,31 @@
+const PASSWORD_MIN = 6;
+const PASSWORD_MAX = 20;
+const EMAIL_MIN = 1;
+const EMAIL_MAX = 50;
+const PASSWORD_MAX_ERROR = `패스워드는 ${PASSWORD_MAX}자 이하로 적어주세요.`;
+const PASSWORD_MIN_ERROR = `패스워드는 적어도 ${PASSWORD_MIN}자 이상이어야 합니다.`;
+const EMAIL_MAX_ERROR = `이메일은 ${EMAIL_MAX}자 이하로 적어주세요.`;
+const EMAIL_MIN_ERROR = `이메일은 적어도 ${EMAIL_MIN}자 이상이어야 합니다.`;
+const USERNAME_EMAIL_ERROR = '이메일 형식이 아닙니다.';
+const USERNAME_PASSWORD_COMBINATION_ERROR = '이메일이나 비밀번호가 틀렸습니다.';
+const INTERNAL_SERVER_ERROR = '서버 내부 오류';
+const VERIFICATION_ERROR = '입력이 잘못되었습니다.'
+const SUCCESSFULLY_LOGGED_IN = '성공적으로 로그인했습니다.';
+const FETCH_INFO_ERROR_MESSAGE = '계정 정보를 가져올 수 없습니다.';
+
+module.exports = {
+  PASSWORD_MAX,
+  PASSWORD_MIN,
+  EMAIL_MIN,
+  EMAIL_MAX,
+  PASSWORD_MAX_ERROR,
+  PASSWORD_MIN_ERROR,
+  EMAIL_MAX_ERROR,
+  EMAIL_MIN_ERROR,
+  USERNAME_EMAIL_ERROR,
+  USERNAME_PASSWORD_COMBINATION_ERROR,
+  INTERNAL_SERVER_ERROR,
+  VERIFICATION_ERROR,
+  SUCCESSFULLY_LOGGED_IN,
+  FETCH_INFO_ERROR_MESSAGE,
+};

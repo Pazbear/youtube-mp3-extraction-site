@@ -10,7 +10,10 @@ const morgan = require('morgan');
 const path = require("path");
 const helmet = require('helmet');
 
+const initAuthMiddleware = require('./middleware/init-auth')
+
 const indexRouter = require('./routes/index')
+const apiRouter = require('./routes/api')
 
 
 
@@ -58,6 +61,7 @@ app.use(session({
 }))
 
 app.use('/', indexRouter)
+app.use('/api', apiRouter)
 
 /******************* PM2 *******************/
 let isDisableKeepAlive = false
@@ -85,6 +89,8 @@ sequelize.sync({ force: false })
     }).catch((err) => {
         console.error(err)
     })
+
+initAuthMiddleware(app)
 
 app.listen(process.env.PORT, () => {
     console.log(`Server Listening on ${process.env.PORT}`);

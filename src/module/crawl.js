@@ -33,8 +33,8 @@ const crawl = async (youtube_channel_url) => {
 
     await getVideoList(driver)
     .then((list)=> {
-        
         //현재 DB와 비교해서 없는 것들 추출
+        
     }).catch(error => {
         console.error(error)
     }).then(async ()=>{
