@@ -9,7 +9,7 @@ async function LoginHistory(req, res) {
         console.log("ip 저장 실패")
         console.log(error);
     }
-    return res.send({ success: true});
+    return res.redirect('/');
 }
   
 module.exports = LoginHistory;

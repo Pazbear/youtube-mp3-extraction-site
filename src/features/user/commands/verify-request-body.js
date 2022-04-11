@@ -4,7 +4,7 @@ const constants = require('../constants');
 
 const { PASSWORD_MAX, PASSWORD_MIN, EMAIL_MAX, EMAIL_MIN, VERIFICATION_ERROR } = constants;
 
-const schema = Joi.object().keys({
+const registerSchema = Joi.object().keys({
   email: Joi.string()
   .min(EMAIL_MIN)
   .max(EMAIL_MAX)
@@ -15,11 +15,38 @@ const schema = Joi.object().keys({
     .max(PASSWORD_MAX)
 });
 
-module.exports = async function validate(req, res, next) {
-  payloadValidation = await schema.validate(req.body, { abortEarly: false });
+const loginSchema = Joi.object().keys({
+  email: Joi.string()
+  .min(EMAIL_MIN)
+  .max(EMAIL_MAX)
+  .email({ minDomainSegments: 2 }),
+
+  password: Joi.string()
+    .min(PASSWORD_MIN)
+    .max(PASSWORD_MAX)
+});
+
+async function loginValidate(req, res, next) {
+  payloadValidation = await loginSchema.validate(req.body, { abortEarly: false });
   if (payloadValidation.error) {
-    return res.status(400).send({ success: false, message: VERIFICATION_ERROR });
+    req.session.err_msg = VERIFICATION_ERROR;
+    return res.redirect('/');
   } else {
     return next();
   }
 };
+
+async function registerValidate(req, res, next) {
+  payloadValidation = await registerSchema.validate(req.body, { abortEarly: false });
+  if (payloadValidation.error) {
+    req.session.err_msg = VERIFICATION_ERROR;
+    return res.redirect('/');
+  } else {
+    return next();
+  }
+};
+
+module.exports = {
+  loginValidate,
+  registerValidate
+}

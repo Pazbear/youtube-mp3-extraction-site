@@ -13,7 +13,6 @@ const helmet = require('helmet');
 const initAuthMiddleware = require('./middleware/init-auth')
 
 const indexRouter = require('./routes/index')
-const apiRouter = require('./routes/api')
 
 
 
@@ -27,7 +26,7 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
 /*app.set('trust proxy', true);*/
-app.use(helmet())
+/*app.use(helmet())*/
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -60,8 +59,6 @@ app.use(session({
     }
 }))
 
-app.use('/', indexRouter)
-app.use('/api', apiRouter)
 
 /******************* PM2 *******************/
 let isDisableKeepAlive = false
@@ -91,6 +88,10 @@ sequelize.sync({ force: false })
     })
 
 initAuthMiddleware(app)
+
+app.use(express.static(__dirname + '/public'))
+
+app.use('/', indexRouter)
 
 app.listen(process.env.PORT, () => {
     console.log(`Server Listening on ${process.env.PORT}`);

@@ -11,7 +11,7 @@
     <title>Nafie - HTML Portfolio Template</title>
 
     <!-- favicon -->
-    <link rel="icon" href="assets/favicon.ico">
+    <link rel="icon" href="/assets/favicon.ico">
 
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,13 +19,13 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto&family=Saira+Stencil+One&text=Nafie&display=swap">
 
     <!-- css libraries file -->
-    <link rel="stylesheet" href="styles/libraries.min.css">
+    <link rel="stylesheet" href="/styles/libraries.min.css">
 
     <!-- bootstrap css file -->
-    <link rel="stylesheet" href="styles/bootstrap.css">
+    <link rel="stylesheet" href="/styles/bootstrap.css">
 
     <!-- main style file -->
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="/styles/main.css">
   </head>
   <body>
     <div id="app">
@@ -61,12 +61,20 @@
           <div class="container">
             <!-- logo -->
             <div class="logo" title="Nafie">
-              <h1><a href="index.html">Pazbear</a></h1>
+              <h1><a href="/">Pazbear</a></h1>
             </div>
-
 
             <!-- options icons -->
             <ul class="options-icons">
+
+              <!-- logout button -->
+              <% if(id){ %>
+              <li>
+                <form action="/user/logout" method="get">
+                  <button class="submit-btn btn btn-dark" type="submit" @click="contactFormValidation">로그아웃</button>
+                </form>
+              </li>
+              <% } %>
 
               <!-- theme switcher button -->
               <li class="theme-switcher">
@@ -78,7 +86,8 @@
         </header>
         <!-- end of header -->
 
-        <!-- start of contact section -->
+        <% if(!id){ %>
+        <!-- start of auth section -->
         <div id="contact" class="contact-section section" tabindex="-1">
           <div class="container">
             <div class="section-content row">
@@ -113,10 +122,9 @@
               <div class="col-lg-6">
                 <form ref="contactForm"
                   class="contact-form form-styled"
-                  action=""
-                  style="opacity:1;"
-                  data-success-msg="Message sent successfully!"
-                  data-err-msg="Oops! something went wrong, please try again.">
+                  action="/user/login"
+                  method="post"
+                  style="opacity:1;">
                   <div class="group">
                     <label>Email</label>
                     <div class="control has-prefix-icon">
@@ -154,7 +162,7 @@
                   </div>
                   <div class="group">
                     <div class="control">
-                      <button class="submit-btn btn btn-dark" type="button" @click="contactFormValidation">Send</button>
+                      <button class="submit-btn btn btn-dark" type="submit" @click="contactFormValidation">로그인</button>
                     </div>
                   </div>
                 </form>
@@ -163,20 +171,147 @@
           </div>
         </div>
         <!-- end of contact section -->
+        <% } else{ %>
+          <!-- start of auth section -->
+        <div id="contact" class="contact-section section" tabindex="-1">
+          <div class="container">
+            <div class="section-content row">
 
+              <!-- text box -->
+              <div class="contact-text col-lg-6">
+                <div class="text-box-inline">
+                  <span class="subtitle">Pazbear</span>
+                  <h2>
+                    Mp3 Extraction-info reg.
+                  </h2>
+                </div>
+
+                <!-- contact info -->
+                <ul class="contact-info">
+                  <li>
+                    <img src="assets/images/icons/email.png" alt="Email">
+                    <div>
+                      <strong>Email:</strong>
+                      <ul>
+                        <li><a href="mkcho1997@daum.net">mkcho1997@daum.net</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- contact form -->
+              <div class="col-lg-6">
+                <form ref="contactForm"
+                  class="contact-form form-styled"
+                  action="/user/login"
+                  method="post"
+                  style="opacity:1;">
+                  <div class="group">
+                    <label>youtube_url <br>( ex - https://www.youtube.com/channel/~ , https://www.youtube.com/c/~ )</label>
+                    <div class="control has-prefix-icon">
+                      <input class="ltr-dir"
+                        type="text"
+                        inputmode="text"
+                        name="youtube_url"
+                        placeholder=""
+                        required>
+
+                    </div>
+                  </div>
+                  <div class="group">
+                    <label>extract_time ( 0 ~ 23 )</label>
+                    <div class="control has-prefix-icon">
+                      <input class="ltr-dir"
+                        type="text"
+                        inputmode="text"
+                        name="extract_time"
+                        placeholder=""
+                        required>
+
+                      <!-- validation errors messages -->
+                      <div class="errors-msgs">
+                        <input class="required" type="hidden" value="Email is required">
+                        <input class="invalid" type="hidden" value="Please enter a valid email address">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="group">
+                    <div class="control">
+                      <button class="submit-btn btn btn-dark" type="submit" @click="contactFormValidation">등록</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end of contact section -->
+        
+        <!-- table section -->
+        <div id="skills" class="skills-section section" tabindex="-1">
+          <div class="container">
+            <div class="section-content row">
+              <div class="skills-items col-lg-12">
+
+                <!-- table list -->
+                <ul v-staggerdelay="50">
+                  <li tabindex="0" style="width:200px; height:80px;">
+                    <div class="skill-icon">
+                      hiiiiiiiiiiiiiiiiiiiiiiiiiiii<br>
+                      3
+                    </div>
+                  </li>
+                  <li tabindex="0" style="width:200px; height:80px;">
+                    <div class="skill-icon">
+                      hiiiiiiiiiiiiiiiiiiiiiiiiiiii<br>
+                      3
+                    </div>
+                  </li>
+                  <li tabindex="0" style="width:200px; height:80px;">
+                    <div class="skill-icon">
+                      hiiiiiiiiiiiiiiiiiiiiiiiiiiii<br>
+                      3
+                    </div>
+                  </li>
+                  <li tabindex="0" style="width:200px; height:80px;">
+                    <div class="skill-icon">
+                      hiiiiiiiiiiiiiiiiiiiiiiiiiiii<br>
+                      3
+                    </div>
+                  </li>
+                  <li tabindex="0" style="width:200px; height:80px;">
+                    <div class="skill-icon">
+                      hiiiiiiiiiiiiiiiiiiiiiiiiiiii<br>
+                      3
+                    </div>
+                  </li>
+                  <li tabindex="0" style="width:200px; height:80px;">
+                    <div class="skill-icon">
+                      hiiiiiiiiiiiiiiiiiiiiiiiiiiii<br>
+                      3
+                    </div>
+                  </li>
+                </ul>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end of table section -->
+        <% } %>
         <!-- start of footer -->
-        <footer>
+        <footer style="margin-top:80px;">
           <div class="container">
             <div class="row">
               <div class="col-lg-6">
                 <!-- logo -->
                 <div class="logo" title="Nafie">
-                  <h1><a href="index.html">Nafie</a></h1>
+                  <h1><a href="index.html">Pazbear</a></h1>
                 </div>
               </div>
               <div class="col-lg-6">
-                &copy; {{ copyrightDate }} Proudly Powered by
-                <a href="https://themeforest.net/user/webrouk/portfolio" target="_blank" rel="noopener">Webrouk</a>
+                &copy; {{ copyrightDate }}
               </div>
             </div>
           </div>
@@ -194,20 +329,8 @@
         </button>
 
         <!-- toast notifications -->
-        <ul class="notifications-container hide-in-preloading">
-          <transition-group name="notify">
-            <li v-for="notify of notifications"
-              :key="notify.id"
-              :id="notify.id"
-              :class="['notification', 'show', notify.className, notify.time && 'timer']"
-            >
-              {{ notify.msg }}
-              <i class="fa fa-times link-hover" aria-hidden="true" @click="dismissNotify(notify.id)"></i>
-              <span v-if="notify.time"
-                class="disappearing-time"
-                :style="{ 'animation-duration': notify.time + 'ms' }"></span>
-            </li>
-          </transition-group>
+        <ul class="notifications-container">
+          
         </ul>
 
         <!-- ajax loading -->
@@ -218,9 +341,9 @@
     </div>
 
     <!-- js plugins file -->
-    <script src="scripts/plugins.min.js"></script>
+    <script src="/scripts/plugins.min.js"></script>
 
     <!-- main script file -->
-    <script src="scripts/main.min.js"></script>
+    <script src="/scripts/main.min.js"></script>
   </body>
 </html>

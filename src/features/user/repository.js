@@ -1,6 +1,15 @@
 const bcrypt = require('bcrypt')
 const {User, LoginHistory} = require('../../db/models')
 
+async function registerUser({ email, password }) {
+  const hashedPass = await bcrypt.hash(password,12);
+  const result = await User.create({
+    email : email,
+    password:hashedPass,
+  })
+  return {success:true};
+}
+
 async function getUserForLoginData(email, password) {
     const user = await User.findOne({
       where:{email:email}
@@ -37,7 +46,8 @@ async function saveLoginHistory(requestIp, id){
 }
 
 module.exports = {
-    getUserForLoginData,
-    getUserById,
-    saveLoginHistory
+  registerUser,
+  getUserForLoginData,
+  getUserById,
+  saveLoginHistory
 };
