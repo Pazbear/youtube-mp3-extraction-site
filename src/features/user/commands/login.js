@@ -13,7 +13,9 @@ async function login(req, res, next) {
     return req.logIn(user, loginError => {
       if (loginError) {
         req.session.err_msg = INTERNAL_SERVER_ERROR;
-        return res.redirect('/');
+        req.session.save(()=>{
+          return res.redirect('/');
+        })
       }
       return next();
     });

@@ -6,13 +6,13 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const SessionStore = require('express-session-sequelize')(session.Store);
 const cors = require('cors');
-const morgan = require('morgan');
 const path = require("path");
-const helmet = require('helmet');
+
 
 const initAuthMiddleware = require('./middleware/init-auth')
-
 const indexRouter = require('./routes/index')
+
+const scheduleJob = require('./module/schedule')
 
 
 
@@ -31,8 +31,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECTET, { sameSite: "none", secure: true }));
-app.use(morgan("dev"))
-
 
 
 app.use((req, res, next) => {
@@ -92,6 +90,8 @@ initAuthMiddleware(app)
 app.use(express.static(__dirname + '/public'))
 
 app.use('/', indexRouter)
+
+scheduleJob()
 
 app.listen(process.env.PORT, () => {
     console.log(`Server Listening on ${process.env.PORT}`);

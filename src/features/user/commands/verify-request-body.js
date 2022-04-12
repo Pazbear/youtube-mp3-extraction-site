@@ -30,7 +30,9 @@ async function loginValidate(req, res, next) {
   payloadValidation = await loginSchema.validate(req.body, { abortEarly: false });
   if (payloadValidation.error) {
     req.session.err_msg = VERIFICATION_ERROR;
-    return res.redirect('/');
+    req.session.save(()=>{
+      return res.redirect('/');
+    })
   } else {
     return next();
   }
@@ -40,7 +42,9 @@ async function registerValidate(req, res, next) {
   payloadValidation = await registerSchema.validate(req.body, { abortEarly: false });
   if (payloadValidation.error) {
     req.session.err_msg = VERIFICATION_ERROR;
-    return res.redirect('/');
+    req.session.save(()=>{
+      return res.redirect('/');
+    })
   } else {
     return next();
   }

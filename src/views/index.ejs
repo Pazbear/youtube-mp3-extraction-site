@@ -204,7 +204,7 @@
               <div class="col-lg-6">
                 <form ref="contactForm"
                   class="contact-form form-styled"
-                  action="/user/login"
+                  action="/extraction-info/register"
                   method="post"
                   style="opacity:1;">
                   <div class="group">
@@ -249,49 +249,19 @@
         <!-- end of contact section -->
         
         <!-- table section -->
-        <div id="skills" class="skills-section section" tabindex="-1">
+        <div id="skills" class="skills-section section" tabindex="-1" style="margin-bottom: 100px;">
           <div class="container">
             <div class="section-content row">
               <div class="skills-items col-lg-12">
 
                 <!-- table list -->
                 <ul v-staggerdelay="50">
-                  <li tabindex="0" style="width:200px; height:80px;">
-                    <div class="skill-icon">
-                      hiiiiiiiiiiiiiiiiiiiiiiiiiiii<br>
-                      3
-                    </div>
-                  </li>
-                  <li tabindex="0" style="width:200px; height:80px;">
-                    <div class="skill-icon">
-                      hiiiiiiiiiiiiiiiiiiiiiiiiiiii<br>
-                      3
-                    </div>
-                  </li>
-                  <li tabindex="0" style="width:200px; height:80px;">
-                    <div class="skill-icon">
-                      hiiiiiiiiiiiiiiiiiiiiiiiiiiii<br>
-                      3
-                    </div>
-                  </li>
-                  <li tabindex="0" style="width:200px; height:80px;">
-                    <div class="skill-icon">
-                      hiiiiiiiiiiiiiiiiiiiiiiiiiiii<br>
-                      3
-                    </div>
-                  </li>
-                  <li tabindex="0" style="width:200px; height:80px;">
-                    <div class="skill-icon">
-                      hiiiiiiiiiiiiiiiiiiiiiiiiiiii<br>
-                      3
-                    </div>
-                  </li>
-                  <li tabindex="0" style="width:200px; height:80px;">
-                    <div class="skill-icon">
-                      hiiiiiiiiiiiiiiiiiiiiiiiiiiii<br>
-                      3
-                    </div>
-                  </li>
+                  <% for ( var n in extraction_infos){ %>
+                    <li tabindex="0" style="width:200px; height:80px;">
+                        URL : <%=extraction_infos[n].youtube_url %><br><br>
+                        TIME : <%=extraction_infos[n].extract_time %>
+                    </li>
+                  <%}%>
                 </ul>
 
               </div>
