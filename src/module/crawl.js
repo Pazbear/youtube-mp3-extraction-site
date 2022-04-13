@@ -18,7 +18,7 @@ const getVideoList = (driver) => {
     })
 }
 
-const crawl = async (youtube_channel_url) => {
+const crawl = async ({youtube_url, UserId}) => {
     //chromedriver 경로 설정
     const service = new chrome.ServiceBuilder(path.join(__dirname, 'chromedriver.exe')).build();
     chrome.setDefaultService(service);
@@ -28,7 +28,7 @@ const crawl = async (youtube_channel_url) => {
     .forBrowser('chrome')
     .build();
 
-    await driver.get(youtube_channel_url+'/videos')
+    await driver.get(youtube_url+'/videos')
 
 
     await getVideoList(driver)

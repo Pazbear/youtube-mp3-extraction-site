@@ -19,7 +19,18 @@ async function getExtractionInfoById( id ) {
     return result
 }
 
+async function getExtractionInfoByExtractTime(extract_time){
+    const result = await ExtractionInfo.findAll({
+        where : {
+            extract_time : parseInt(extract_time)
+        },
+        raw:true
+    })
+    return result
+}
+
 module.exports = {
     registerExtractionInfo,
-    getExtractionInfoById
+    getExtractionInfoById,
+    getExtractionInfoByExtractTime
 }
