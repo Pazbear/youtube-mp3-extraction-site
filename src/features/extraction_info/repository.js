@@ -1,10 +1,11 @@
 const { ExtractionInfo } = require('../../db/models')
 
-async function registerExtractionInfo({youtube_url, extract_time}, id){
+async function registerExtractionInfo(youtube_url, extract_time, id, extraction_log){
     await ExtractionInfo.create({
         youtube_url:youtube_url,
         extract_time:extract_time,
-        UserId : id
+        UserId : id,
+        extraction_log : extraction_log
     })
     return {success:true}
 }

@@ -5,6 +5,10 @@ const userRouter = require('../features/user/routes')
 const extractionInfoRouter = require('../features/extraction_info/routes')
 const ExtractionInfoRepo = require('../features/extraction_info/repository')
 const {crawl} = require('../module/crawl')
+const Downloader = require('../module/downloader')
+
+const dl = new Downloader()
+
 
 router.get('/', async (req, res, next)=>{
     const err_msg = req.session.err_msg;
@@ -17,6 +21,7 @@ router.get('/', async (req, res, next)=>{
             extraction_infos = await ExtractionInfoRepo.getExtractionInfoById(req.user.id)
             console.log(extraction_infos)
         }catch(e){
+            console.log(e)
             extraction_infos=[{youtube_url:"서버 내부 에러", extract_time:-1}]
         }
     res.render('index',{
@@ -32,6 +37,14 @@ router.use('/extraction-info', extractionInfoRouter)
 router.get('/crawl-test', async (req, res)=>{
     await crawl("https://www.youtube.com/c/Sople")
     res.send({success:true})
+})
+
+router.get('/download-audio-test', async (req, res)=>{
+    dl.getMP3({videoId:"Pm5HJn9WjwI"}, (err, output)=>{
+        if(err)
+            res.send({success:false})
+        res.send({success:true})
+    })
 })
 
 module.exports = router

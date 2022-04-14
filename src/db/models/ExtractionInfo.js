@@ -11,6 +11,11 @@ module.exports = class ExtractionInfo extends Sequelize.Model {
                 type : Sequelize.INTEGER,
                 allowNull:false
             },
+            extraction_log:{
+                type : Sequelize.TEXT,
+                allowNull:true,
+                defaultValue:null
+            },
             is_active : {
                 type : Sequelize.BOOLEAN,
                 defaultValue:false

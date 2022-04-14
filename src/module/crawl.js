@@ -4,6 +4,8 @@ const chrome = require('selenium-webdriver/chrome')
 const path = require('path')
 const _ = require('lodash')
 
+const ExtractionInfoRepo = require('../features/extraction_info/repository')
+
 const getVideoList = (driver) => {
     //유튜브 로딩 대기  (3초)
     return new Promise((resolve, reject) => {
@@ -18,13 +20,23 @@ const getVideoList = (driver) => {
     })
 }
 
-const crawl = async ({youtube_url, UserId}) => {
+
+//type = 0 : youtube 비디오 리스트 등록(추출 및 보내기 x)
+//type = 1 : 새로운 비디오 mp3 추출 및 보내기
+const crawl = async ({youtube_url, extract_time, extraction_log=null}, UserId, type) => {
     //chromedriver 경로 설정
     const service = new chrome.ServiceBuilder(path.join(__dirname, 'chromedriver.exe')).build();
     chrome.setDefaultService(service);
 
     //chrome 브라우저 빌드
     const driver = await new webdriver.Builder()
+    .setChromeOptions({
+        args:['--disable-infobars',
+        '--ignore-ssl-errors=yes',    
+        '--ignore-certificate-errors',
+        /*'--headless'*/],
+        excludeSwitches:['enable-logging'],
+    })
     .forBrowser('chrome')
     .build();
 
@@ -32,15 +44,28 @@ const crawl = async ({youtube_url, UserId}) => {
 
 
     await getVideoList(driver)
-    .then((list)=> {
-        //현재 DB와 비교해서 없는 것들 추출
-        
+    .then(async(list)=> {
+
+        if(type == 0){
+            //리스트 => 로그로 변환해 저장
+            await ExtractionInfoRepo.registerExtractionInfo(youtube_url, extract_time, UserId, list.join(" &&&& "))
+        }else{
+            //현재 DB와 비교해서 없는 것들 추출
+            console.log("list=")
+            console.log(list)
+            const last_list = extraction_log.split(" &&&& ")
+            const last_new_video_index = _.findIndex(list, (l)=>{
+                return l === last_list[0]
+            })
+            for(let i=0; i<last_new_video_index; i++){
+                console.log(list[i])
+            }
+        }
     }).catch(error => {
         console.error(error)
-    }).then(async ()=>{
+    }).finally(async ()=>{
         console.log("bye driver")
         await driver.quit();
-        process.exit(0)
     })
 }
 

@@ -4,7 +4,7 @@ const {crawl} = require('./crawl')
 
 const {getExtractionInfoByExtractTime} = require('../features/extraction_info/repository')
 
-const rule = '0 0 */1 * * *'
+const rule = '0 */5 * * * *'
 
 
 module.exports = () => {
@@ -13,8 +13,7 @@ module.exports = () => {
         const extraction_infos = await getExtractionInfoByExtractTime(now_hr)
         console.log(extraction_infos)
         for(let i in extraction_infos){
-            console.log(extraction_infos[i])
-            await crawl(extraction_infos[i])
+            await crawl(extraction_infos[i], extraction_infos[i].UserId, 1)
         }
     })
 }

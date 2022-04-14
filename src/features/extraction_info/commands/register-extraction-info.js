@@ -1,4 +1,5 @@
 const registerRepo = require('../repository');
+const {crawl} = require('../../../module/crawl')
 const { INTERNAL_SERVER_ERROR, FETCH_INFO_ERROR_MESSAGE } = require('../constants')
 
 async function registerExtractionInfo(req, res) {
@@ -6,26 +7,21 @@ async function registerExtractionInfo(req, res) {
     try{
         const {id} = req.user
         try {
-            result = await registerRepo.registerExtractionInfo(req.body, id);
-         } catch (error) {
-             console.error(error)
-             result=error
-         }
+            await crawl(req.body, id, 0);
+        } catch (error) {
+            console.error(error)
+            res.session.err_msg = INTERNAL_SERVER_ERROR
+            res.session.save(()=>{
+                return res.redirect('/')
+            })
+        }
     }catch(e){
         req.session.err_msg = FETCH_INFO_ERROR_MESSAGE
         req.session.save(()=>{
             return res.redirect('/')
         })
     }
-    if (result.success) {
-        return res.redirect('/');
-    } else {
-        res.session.err_msg = INTERNAL_SERVER_ERROR
-        res.session.save(()=>{
-            return res.redirect('/')
-        })
-    }
-  
+    return res.redirect('/');
 }
 
 module.exports = registerExtractionInfo;
