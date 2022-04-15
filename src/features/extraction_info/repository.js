@@ -10,6 +10,13 @@ async function registerExtractionInfo(youtube_url, extract_time, id, extraction_
     return {success:true}
 }
 
+async function updateExtractionInfo(id, extraction_log){
+    await ExtractionInfo.update({
+        extraction_log : extraction_log
+    },{where : {id : id}})
+    return;
+}
+
 async function getExtractionInfoById( id ) {
     const result = await ExtractionInfo.findAll({
         where: {
@@ -32,6 +39,7 @@ async function getExtractionInfoByExtractTime(extract_time){
 
 module.exports = {
     registerExtractionInfo,
+    updateExtractionInfo,
     getExtractionInfoById,
     getExtractionInfoByExtractTime
 }

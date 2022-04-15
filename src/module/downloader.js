@@ -1,6 +1,6 @@
 var YoutubeMp3Downloader = require("youtube-mp3-downloader");
 const shell = require('shelljs')
-
+const path = require('path')
 var Downloader = function() {
 
     var self = this;
@@ -8,7 +8,7 @@ var Downloader = function() {
     //Configure YoutubeMp3Downloader with your settings
     self.YD = new YoutubeMp3Downloader({
         "ffmpegPath": shell.which('ffmpeg').stdout,
-        "outputPath":__dirname,
+        "outputPath":path.join(__dirname, './temp_download_mp3'),
         "youtubeVideoQuality": "highestaudio",
         "queueParallelism": 1,
         "progressTimeout": 5000,
