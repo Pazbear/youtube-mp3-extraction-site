@@ -7,3 +7,4 @@ src/module/chromedriver.exe
 src/views/assets
 src/views/scripts
 src/views/styles
+src/config/
