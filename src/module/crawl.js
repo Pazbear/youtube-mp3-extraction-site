@@ -31,18 +31,19 @@ const getVideoList = (driver) => {
 //type = 1 : 새로운 비디오 mp3 추출 및 보내기
 const crawl = async ({ id = null, youtube_url, extract_time, extraction_log = null }, UserId, type) => {
     //chromedriver 경로 설정
-    const service = new chrome.ServiceBuilder(path.join(__dirname, 'chromedriver.exe')).build();
+    const service = new chrome.ServiceBuilder(path.join(__dirname, 'chromedriver')).build();
     chrome.setDefaultService(service);
+
+    const options = new chrome.Options()
+    options.addArguments('--disable-infobars')
+    options.addArguments('--ignore-ssl-errors=yes')
+    options.addArguments('--ignore-certificate-errors')
+    options.addArguments('--headless')
+    options.addArguments('--no-sandbox')
 
     //chrome 브라우저 빌드
     const driver = await new webdriver.Builder()
-        .setChromeOptions({
-            args: ['--disable-infobars',
-                '--ignore-ssl-errors=yes',
-                '--ignore-certificate-errors',
-                '--headless'],
-            excludeSwitches: ['enable-logging'],
-        })
+        .setChromeOptions(options)
         .forBrowser('chrome')
         .build();
 
