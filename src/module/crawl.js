@@ -40,7 +40,13 @@ const crawl = async ({ id = null, youtube_url, extract_time, extraction_log = nu
     options.addArguments('--ignore-certificate-errors')
     options.addArguments('--headless')
     options.addArguments('--no-sandbox')
-
+    options.addArguments('--disable-dev-shm-usage')
+    options.addArguments('--disable-setuid-sandbox')
+    options.addArguments('--incognito')
+    options.addArguments('--disable-gpu')
+    try{
+        await driver.quit()
+    }catch(e){}
     //chrome 브라우저 빌드
     const driver = await new webdriver.Builder()
         .setChromeOptions(options)
