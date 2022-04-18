@@ -68,20 +68,22 @@ const crawl = async ({ id = null, youtube_url, extract_time, extraction_log = nu
                 let promise_arr = []
                 for (let i = 0; i < last_new_video_index; i++) {
                     promise_arr.push(new Promise(async (resolve, reject) => {
-                        dl.getMP3({ videoId: list[i].split('?v=')[1] }, (err, out) => {
-                            if (err) {
-                                console.error(err)
-                                reject()
-                            }
-                            else {
-                                downloaded_files.push({
-                                    filename: out.videoTitle + ".mp3",
-                                    filepath: out.file
-                                })
-                                console.log(list[i].split('?v=')[1] + "다운로드 완료")
-                                resolve()
-                            }
-                        })
+                        if(list[i].split('?v=').length >=2){
+                            dl.getMP3({ videoId: list[i].split('?v=')[1] }, (err, out) => {
+                                if (err) {
+                                    console.error(err)
+                                    reject()
+                                }
+                                else {
+                                    downloaded_files.push({
+                                        filename: out.videoTitle + ".mp3",
+                                        filepath: out.file
+                                    })
+                                    console.log(list[i].split('?v=')[1] + "다운로드 완료")
+                                    resolve()
+                                }
+                            })
+                        }
                     }))
                 }
                 if (promise_arr.length !== 0) {

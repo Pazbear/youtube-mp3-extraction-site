@@ -4,7 +4,7 @@ const {crawl} = require('./crawl')
 
 const {getExtractionInfoByExtractTime} = require('../features/extraction_info/repository')
 
-const rule = '0 */5 * * * *'
+const rule = '0 0 */1 * * *'
 
 
 module.exports = () => {
