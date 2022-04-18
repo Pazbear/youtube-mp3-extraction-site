@@ -8,3 +8,4 @@ src/views/assets
 src/views/scripts
 src/views/styles
 src/config/
+pm2Logs/
