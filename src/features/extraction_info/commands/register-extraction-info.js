@@ -8,6 +8,7 @@ async function registerExtractionInfo(req, res) {
         const {id} = req.user
         try {
             await crawl(req.body, id, 0);
+            return res.redirect('/');
         } catch (error) {
             console.error(error)
             res.session.err_msg = INTERNAL_SERVER_ERROR
@@ -16,12 +17,12 @@ async function registerExtractionInfo(req, res) {
             })
         }
     }catch(e){
+        console.log(e)
         req.session.err_msg = FETCH_INFO_ERROR_MESSAGE
         req.session.save(()=>{
             return res.redirect('/')
         })
     }
-    return res.redirect('/');
 }
 
 module.exports = registerExtractionInfo;
